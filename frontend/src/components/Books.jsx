@@ -28,12 +28,21 @@ const BooksList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Books</h2>
-      {books.map((book, index) => (
-        <div key={index}>{book.name}</div>
-      ))}
+    <div className="mx-auto max-w-2xl px-6">
+      <h2 className="pb-6 text-2xl font-semibold">Books</h2>
+
       <AddBookForm addBook={addBook} />
+
+      <div className="mt-6 space-y-2">
+        {books.map((book, index) => (
+          <div
+            key={index}
+            className="px-4 py-3 text-lg font-medium"
+          >
+            {book.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
