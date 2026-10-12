@@ -1,25 +1,56 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
+const emptyBook = { title: "", author: "", price: "" };
+
+const inputClass =
+  "rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20";
 
 const AddBookForm = ({ addBook }) => {
-  const [bookName, setBookName] = useState("");
+  const [book, setBook] = useState(emptyBook);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setBook((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (bookName) {
-      addBook(bookName);
-      setBookName("");
+    if (book.title && book.author && book.price) {
+      addBook(book);
+      setBook(emptyBook);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form onSubmit={handleSubmit} className="flex flex-wrap gap-2">
       <input
         type="text"
-        value={bookName}
-        onChange={(e) => setBookName(e.target.value)}
-        placeholder="Enter Book Name"
-        className="rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+        name="title"
+        value={book.title}
+        onChange={handleChange}
+        placeholder="Title"
+        className={inputClass}
+      />
+
+      <input
+        type="text"
+        name="author"
+        value={book.author}
+        onChange={handleChange}
+        placeholder="Author"
+        className={inputClass}
+      />
+
+      <input
+        type="number"
+        name="price"
+        value={book.price}
+        onChange={handleChange}
+        placeholder="Price"
+        min="0"
+        step="0.01"
+        className={`${inputClass} w-28`}
       />
 
       <button
