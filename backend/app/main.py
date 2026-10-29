@@ -6,7 +6,10 @@ from .routers import authors, books, users
 
 # models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(
+   title="Booker API",
+   description="A RESTful API for managing books, authors and user accounts.",
+   version="1.0.0")
 app.include_router(books.router)
 app.include_router(authors.router)
 app.include_router(users.router)
